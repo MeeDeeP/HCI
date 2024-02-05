@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="email" id="email" /><button onclick="checkEmail()">
+        Check email
+      </button>
+      <p id="result"></p>
+    </div>
+    <div>
+      <button id="DogBtn" onclick="nextDog()">Click me</button><br />
+      <img id="dog" alt="random dogs" />
+    </div>
+
+    <script>
+      fetch("https://dog.ceo/api/breeds/image/random")
+        .then((response) => response.json())
+        .then((data) => (document.getElementById("dog").src = data.message));
+
+      function nextDog() {
+        location.reload();
+      }
+
+      function checkEmail() {
+        let email = document.getElementById("email").value;
+        const options = {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Key":
+              "72d506ec3emsh648f8257cb40861p198079jsn734150a8d603",
+            "X-RapidAPI-Host": "validect-email-verification-v1.p.rapidapi.com",
+          },
+        };
+
+        fetch(
+          'https://validect-email-verification-v1.p.rapidapi.com/v1/verify?email=${email}',
+          options
+        )
+          .then((response) => response.json())
+          .then(
+            (data) =>
+              (document.getElementById("result").innerHTML = data.status)
+          );
+      }
+    </script>
+  </body>
+</html>

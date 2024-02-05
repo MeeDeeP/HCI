@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .form{
+            width: 500px;
+            background-color: #eeeeee;
+            padding: 0 30px;
+            display: grid;
+            gap: 20px;
+            padding-bottom: 30px;
+        }
+        .input{
+            width: 100%;
+            padding: 10px;
+        }
+        .Btn{
+            padding: 10px;
+            background-color: green;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h1>Email Verification</h1>
+        <input type="email" id="email" placeholder="Enter Email...">
+        <button class="Btn" id="emailBtn" onclick="checkEmail()"></button>
+        <p id="result"></p>
+    </div>
+</body>
+</html>

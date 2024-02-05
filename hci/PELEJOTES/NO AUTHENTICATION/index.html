@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Authentication</title>
+<style>
+     body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: skyblue;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #image{
+            text-align: center;
+            /* margin-bottom: 100px; */
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            height: 480px;
+            object-fit: cover;
+        }
+        #cat {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        #image img {
+            width: 500px;
+            height: 400px;
+            object-fit: cover;
+        }
+        #CatBtn {
+            background-color: rgb(24, 44, 221);
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #container h3{
+            justify-content: center;
+            text-align: center;
+            font-size: 25px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+</style>
+</head>
+<body>
+    <div id="container">
+        <h3>Random Cat Generator</h3>
+    <div id="image">
+        <img id="cat" alt="random cats" />
+        <br>
+        <button id="CatBtn" onclick="nextCat()">Click me</button>
+      </div>
+    </div>
+</div>
+
+    <script>
+        fetch("https://api.thecatapi.com/v1/images/search")
+        .then((response) => response.json())
+        .then((data) => (document.getElementById("cat").src = data[0].url));
+
+      function nextCat() {
+        location.reload();
+      }
+    </script>
+</body>
+</html>

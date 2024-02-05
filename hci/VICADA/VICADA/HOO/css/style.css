@@ -1,0 +1,23 @@
+body {
+  background-color: rgb(187, 225, 195);
+}
+
+.container {
+  text-align: center;
+}
+
+#cat {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#CatBtn {
+  margin-top: 15px;
+  transition: background-color 0.5s ease;
+}
+
+#CatBtn:hover {
+  background-color: rgb(145, 120, 93);
+}

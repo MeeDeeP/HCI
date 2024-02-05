@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            background-color:  wheat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="emailSection">
+        <input type="email" id="emailInput" placeholder="Enter email" />
+        <button onclick="check()" id="checkBtn">Check email</button>
+        <p id="message"></p>
+    </div>
+    <div>
+      <button id="DogBtn" onclick="nextDog()">Click me</button><br />
+      <img id="dog" alt="random dogs" />
+    </div>
+
+    <script>
+      fetch("https://dog.ceo/api/breeds/image/random")
+        .then((response) => response.json())
+        .then((data) => (document.getElementById("dog").src = data.message));
+
+      function nextDog() {
+        location.reload();
+      }
+
+      function check() {
+        const email = document.getElementById('emailInput').value;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '95b45890c2msh03a75e1a14288edp1585e1jsnf1a35426f30a',
+                'X-RapidAPI-Host': 'mailcheck.p.rapidapi.com'
+            }
+        }
+
+        fetch(`https://mailcheck.p.rapidapi.com/?domain=${email}`, options)
+            .then(response => response.json())
+            .then(data => {
+                if (data.valid) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Authentication Success',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Email does not exist',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+    }
+    </script>
+  </body>
+</html>

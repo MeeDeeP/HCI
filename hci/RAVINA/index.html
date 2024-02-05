@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI-2 ACTIVITY</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #display {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #dog {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        #emailSection {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="email"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #checkBtn {
+            background-color: #273bae;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #2ecc71;
+        }
+
+        #nextBtn {
+            background-color: rgb(221, 24, 24);
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <h2> RACHIEL <br> RAVINA'S <br> OUTPUT <br> BSIT-3A</h2>
+
+
+    <div id="display">
+        <img id="dog" alt="random dog image"/>
+        <br>
+        <button id="nextBtn" onclick="next()">Next</button>
+    </div>
+
+    <div id="emailSection">
+        <input type="email" id="emailInput" placeholder="Enter email" />
+        <button onclick="check()" id="checkBtn">Check email</button>
+        <p id="message"></p>
+    </div>
+
+<script>
+    function check() {
+        const email = document.getElementById('emailInput').value;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '95b45890c2msh03a75e1a14288edp1585e1jsnf1a35426f30a',
+                'X-RapidAPI-Host': 'mailcheck.p.rapidapi.com'
+            }
+        }
+
+        fetch(`https://mailcheck.p.rapidapi.com/?domain=${email}`, options)
+            .then(response => response.json())
+            .then(data => {
+                if (data.valid) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Authentication Success',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Email does not exist',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+    }
+</script>
+    <script src="API/script.js"></script>
+
+</body>
+
+</html>

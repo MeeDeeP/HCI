@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repala, HCI-2</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .section {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 11px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            font-size: 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        button {
+            background-color: #f10f2d;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginSection" class="section">
+        <input type="text" id="usernameInput" placeholder="Username" />
+        <input type="password" id="passwordInput" placeholder="Password" />
+        <button onclick="loginUser()" id="loginBtn">Login</button>
+        <button onclick="openRegistrationModal()" id="registerBtn">Register</button>
+        <p id="loginMessage"></p>
+    </div>
+
+    <div id="display" class="section">
+        <img id="dog" alt="Random dog image" />
+        <br>
+        <button onclick="next()">Next Dog</button>
+    </div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+
+        function openRegistrationModal() {
+            Swal.fire({
+                title: 'Register',
+                html: `<input type="text" id="swal-username" class="swal2-input" placeholder="Username">
+                       <input type="password" id="swal-password" class="swal2-input" placeholder="Password">
+                       <input type="password" id="swal-confirm-password" class="swal2-input" placeholder="Confirm Password">`,
+                focusConfirm: false,
+                preConfirm: () => {
+                    const username = document.getElementById('swal-username').value;
+                    const password = document.getElementById('swal-password').value;
+                    const confirmPassword = document.getElementById('swal-confirm-password').value;
+
+                    if (!username || !password || !confirmPassword) {
+                        Swal.showValidationMessage('All fields are required');
+                        return false;
+                    }
+                    if (password !== confirmPassword) {
+                        Swal.showValidationMessage('Passwords do not match');
+                        return false;
+                    }
+                    users[username] = password;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Registered!', 'You are now registered.', 'success');
+                }
+            });
+        }
+
+        function loginUser() {
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+    // Retrieve users from localStorage
+    users = JSON.parse(localStorage.getItem('users')) || {};
+
+    if (users[username] && users[username] === password) {
+        Swal.fire('Success!', 'Login successful.', 'success');
+    } else {
+        // If not found in localStorage, attempt API authentication (mock-up or placeholder)
+        authenticateUserWithAPI(username, password);
+    }
+}
+        function authenticateUserWithAPI(username, password) {
+            const url = 'https://user-auth2.p.rapidapi.com/token/getToken';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-RapidAPI-Key': '25c2e31f43mshebb3392f44e3681p1e117ejsn94d5f430840c',
+                    'X-RapidAPI-Host': 'user-auth2.p.rapidapi.com',
+                },
+                body: JSON.stringify({ username: username, password: password })
+            };
+
+            fetch(url, options)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.token) {
+                        // Assuming the API returns a token on successful authentication
+                        console.log('Authentication successful', data);
+                        Swal.fire('Success!', 'Authentication successful.', 'success');
+                    } else {
+                        // Handle authentication failure
+                        console.log('Authentication failed', data);
+                        Swal.fire('Failed!', 'Authentication failed. Please check your credentials.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error!', 'An error occurred during the authentication process.', 'error');
+                });
+        }
+
+        function next() {
+            fetch('https://dog.ceo/api/breeds/image/random')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('dog').src = data.message;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        window.onload = next;
+    </script>
+    <script src="API/script.js"></script>
+</body>
+</html>

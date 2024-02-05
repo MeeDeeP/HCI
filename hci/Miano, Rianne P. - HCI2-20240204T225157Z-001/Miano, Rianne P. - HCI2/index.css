@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+    body {
+        background: no-repeat linear-gradient(to left, rgb(0, 255, 132) 20px,violet 1000px);
+        background-size: 1300px 5000px;
+        font-family: Arial, sans-serif;
+    }
+    div, form {
+        text-align: center;
+        margin-top: 20px;
+    }
+    button {
+        padding: 5px 10px;
+        margin-top: 20px;
+        font-size: 15px;
+    }
+    img {
+        padding-top: 20px;
+        max-width: 100%;
+        height: auto;
+    }
+    #message {
+        font-size: 10px;
+        color: white;
+    }

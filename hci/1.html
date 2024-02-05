@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            background-color:  skyblue;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="email" id="email" /><button onclick="checkEmail()">
+        Check email
+      </button>
+      <p id="result"></p>
+    </div>
+     <div id="ImageContainer">
+  </div>
+  <button id="randomButton" onclick="getRandomImage()">Click Me</button>
+
+    <script>
+     function getRandomImage() {
+      const apiUrl = 'https://picsum.photos/500/300';
+
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.blob();
+        })
+        .then(blob => {
+          const ImageContainer = document.getElementById('ImageContainer');
+          ImageContainer.innerHTML = ''; 
+
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(blob);
+          img.alt = 'Random Scenery';
+          ImageContainer.appendChild(img);
+        })
+        .catch(error => {
+          console.error('Error fetching random image:', error);
+        });
+    }
+
+      function checkEmail() {
+        let email = document.getElementById("email").value;
+        const options = {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Key":
+              "72d506ec3emsh648f8257cb40861p198079jsn734150a8d603",
+            "X-RapidAPI-Host": "validect-email-verification-v1.p.rapidapi.com",
+          },
+        };
+
+        fetch(
+          'https://validect-email-verification-v1.p.rapidapi.com/v1/verify?email=${email}',
+          options
+        )
+          .then((response) => response.json())
+          .then(
+            (data) =>
+              (document.getElementById("result").innerHTML = data.status)
+          );
+      }
+    </script>
+  </body>
+</html>

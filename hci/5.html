@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="">
+  <title>Email Verification</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#verificationMessage {
+  margin-top: 15px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="verificationForm">
+      <h2>Email Verification</h2>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="button" onclick="sendVerificationEmail()">Send Verification Code</button>
+      <label for="verificationCode">Verification Code:</label>
+      <input type="text" id="verificationCode" name="verificationCode" required>
+      <button type="button" onclick="verifyCode()">Verify Code</button>
+      <p id="verificationMessage"></p>
+    </form>
+  </div>
+  <script>
+    function sendVerificationEmail() {
+  // Implement backend logic to send verification email
+  // You can use AJAX, fetch, or any other method to communicate with the server
+  // Display a message to the user after sending the email
+  document.getElementById("verificationMessage").innerText = "Verification code sent successfully!";
+}
+
+function verifyCode() {
+  // Implement backend logic to verify the entered code
+  // You need to compare the entered code with the one generated and sent to the user
+  // Display a success or error message to the user
+  document.getElementById("verificationMessage").innerText = "Verification successful!";
+}
+
+  </script>
+</body>
+</html>
